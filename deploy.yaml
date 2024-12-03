@@ -1,24 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: basic-js-app
+  name: basic-microservice
   labels:
-    app: basic-js-app
+    app: basic-microservice
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: basic-js-app
+      app: basic-microservice
   template:
     metadata:
       labels:
-        app: basic-js-app
+        app: basic-microservice
     spec:
       containers:
-        - name: basic-js-app
-          image: dinhcam89/basic-js-app:1.0.0 
+        - name: basic-microservice
+          image: <your-docker-hub-username>/basic-microservice:latest
           ports:
             - containerPort: 3000
           env:
             - name: MESSAGE
-              value: "Hello from Kubernetes using Docker Hub image!"
+              value: "Hello from Kubernetes!"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: basic-microservice-service
+spec:
+  selector:
+    app: basic-microservice
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
