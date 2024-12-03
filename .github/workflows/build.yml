@@ -25,8 +25,6 @@ jobs:
 
       - name: Build and Tag Docker Image
         run: |
-          IMAGE_TAG="v0.0.1"  # Manually update this tag as needed
-          echo "Building image with tag: $IMAGE_TAG"
           docker build -t ${{ secrets.DOCKER_USERNAME }}/basic-js-app:v0.0.1.
 
       - name: Push Docker Image
