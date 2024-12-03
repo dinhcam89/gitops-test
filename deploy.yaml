@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: basic-microservice
-          image: <your-docker-hub-username>/basic-microservice:latest
+          image: dinhcam89/basic-js-app:v0.0.1
           ports:
             - containerPort: 3000
           env:
