@@ -1,12 +1,10 @@
 name: Build and Push Docker Image
 
 on:
-  workflow_dispatch:
-    inputs:
-      image_tag:
-        description: 'Specify the Docker image tag (e.g., v1.0.0, main-123abc, blue)'
-        required: true
-        default: 'dev-v0.0.1'
+  push:
+    branches:
+      - main
+      - 'release/*'
 
 jobs:
   build-and-push:
@@ -27,8 +25,10 @@ jobs:
 
       - name: Build and Tag Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/basic-js-app:${{ github.event.inputs.image_tag }} .
+          IMAGE_TAG="v0.0.1"  # Manually update this tag as needed
+          echo "Building image with tag: $IMAGE_TAG"
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/basic-js-app:$IMAGE_TAG .
 
       - name: Push Docker Image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/basic-js-app:${{ github.event.inputs.image_tag }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/basic-js-app:$IMAGE_TAG
