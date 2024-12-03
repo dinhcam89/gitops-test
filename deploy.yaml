@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-js-app
+  labels:
+    app: basic-js-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: basic-js-app
+  template:
+    metadata:
+      labels:
+        app: basic-js-app
+    spec:
+      containers:
+        - name: basic-js-app
+          image: dinhcam89/basic-js-app:1.0.0 
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MESSAGE
+              value: "Hello from Kubernetes using Docker Hub image!"
